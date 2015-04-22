@@ -33,7 +33,7 @@ gem 'omniauth'
 # Google App OAuth.
 gem "omniauth-google-oauth2"
 
-gem 'sinatra', :require => nil,  git: 'git@github.com:sinatra/sinatra.git'
+# gem 'sinatra', :require => nil,  git: 'git@github.com:sinatra/sinatra.git'
 
 group :development do
   # Use thin as the app server
