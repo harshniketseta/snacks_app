@@ -8,11 +8,18 @@ gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# Bootstrap
+gem 'bootstrap-sass', '~> 3.2.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
+# Bootstrap Datetime picker
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
 # Icon library
-gem 'font-awesome-sass'
+gem 'font-awesome-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -25,6 +32,9 @@ gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Pagination
+gem 'kaminari'
 
 # Authorization
 gem 'devise'

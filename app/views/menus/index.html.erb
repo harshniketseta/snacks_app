@@ -1,0 +1,34 @@
+<% if @menus.empty? %>
+  <div class="noData title">No menus uploaded</div>
+  <% if current_user.admin %>
+    <div class="noData"><%= link_to "Add Menu", new_menu_path, title: "Add Menu" %></div>
+  <% else %>
+    <div class="noData subtitle">Please inform the administrator to create a menu</div>
+   <% end %>
+<% else %>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Day</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @menus.each do |menu| %>
+      <tr>
+        <td><%= menu.for_day %></td>
+        <td><%= menu.name %></td>
+        <td><%= menu.description %></td>
+        <td class="actions">
+          <% if current_user.admin %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-pencil"), edit_menu_path(menu), title: "Edit Menu" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @menus %>
+<% end %>

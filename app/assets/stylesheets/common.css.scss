@@ -1,0 +1,307 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+#customBtn {
+  display: inline-block;
+  background: #dd4b39;
+  color: white;
+  width: 241px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+#customBtn:hover {
+  background: #e74b37;
+  cursor: hand;
+}
+
+#customBtn > span.label {
+  font-weight: bold;
+}
+
+#customBtn > span.icon {
+  background: url('http://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 0px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-right: #bb3f30 1px solid;
+}
+
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto', arial, sans-serif;
+}
+
+.marginBottom20 {
+  margin-bottom: 20px;
+}
+
+#main_container {
+  overflow: auto;
+  padding-bottom: 30px;
+  min-height: 100%;
+  overflow: scroll;
+  z-index: 5;
+}
+
+.alert {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.profileImage {
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid #000;
+
+  margin-right: 5px;
+}
+
+.opaque_bg {
+  position: relative;
+  background-color: white;
+  width: 100%;
+  z-index: 7;
+}
+
+.paddingTB10 {
+  padding: 10px 0px;
+}
+
+.banner {
+  width: 100%;
+  height: 300px;
+  //  transition: height 0.5s ease-out;
+  position: relative;
+  background-color: purple;
+  color: white;
+}
+
+.banner.minimized {
+  height: 72px;
+  //  transition: height 0.5s ease-out;
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.banner > .title {
+  position: absolute;
+  padding: 5px 5px 10px 30px;
+}
+
+.banner > .title.main {
+  bottom: 30px;
+  font-size: 40px;
+}
+
+.banner.minimized > .title.main {
+  font-size: 18px;
+}
+
+.banner > .title.summary {
+  bottom: 0px;
+}
+
+.banner.minimized > .title.summary {
+  display: none;
+}
+
+.banner > .menu-bar {
+  position: absolute;
+  padding: 0px 10px;
+  margin: 10px 0px;
+  top: 0px;
+  right: 0px;
+  height: 30px;
+}
+
+.menu-bar > a {
+  text-decoration-style: none;
+  padding: 7px 10px;
+  color: white;
+}
+
+.menu-bar > a:hover {
+  text-decoration: none;
+
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0.08) 40%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 -1px 1px rgba(0, 0, 0, 0.1) inset, 0 1px 0px rgba(0, 0, 0, 0.2) inset;
+}
+
+.menu-bar > a.active {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 5%, rgba(0, 0, 0, 0.08) 40%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 -1px 1px rgba(0, 0, 0, 0.1) inset, 0 1px 0px rgba(0, 0, 0, 0.2) inset;
+}
+
+.banner > .actionsWrap {
+  width: 50%;
+  height: 56px;
+  z-index: 10;
+  position: relative;
+  float: right;
+  padding: 0px 10px;
+}
+
+.banner.minimized > .actionsWrap {
+  //  margin-top: 44px;
+}
+
+.actionsWrap > .actionItem {
+
+}
+
+.plusIcon:after {
+  content: "+";
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.row.margin0 {
+  margin: 0px;
+}
+
+.bannerBG {
+  transition: height 0.5s ease-out;
+}
+
+.bannerBG.minimized {
+  height: 190px;
+}
+
+.bannerBG.maximized {
+  height: 300px;
+}
+
+.clickable, .clickable > * {
+  cursor: pointer;
+}
+
+.marginTB10 {
+  margin: 10px 0px;
+}
+
+input:required {
+  box-shadow: none;
+}
+
+.noData {
+  margin: auto;
+  text-align: center;
+  color: #9AA3AD;
+}
+
+.title {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-top: 25%;
+}
+
+.content {
+  font-size: 15px;
+}
+
+.fieldWrap {
+  margin-bottom: 20px;
+  > label {
+    text-transform: uppercase;
+    display: block;
+    font-size: 11px;
+    font-family: "Avenir Next regular", Helvetica, Arial, sans-serif;
+    color: #474c55;
+  }
+  > input[type=text] {
+    display: block;
+    width: 450px;
+    height: 48px;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #4c4444;
+    background-color: #fbfbfb;
+    background-image: none;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  }
+  > textarea {
+    display: block;
+    width: 450px;
+    height: 100px;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1.42857;
+    color: #4c4444;
+    background-color: #fbfbfb;
+    background-image: none;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    resize: none;
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  }
+  > input[type=submit] {
+    padding: 12px 45px;
+    font-size: 13px;
+    line-height: 1.42857;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #fc5510;
+    border-color: #fc5510;
+  }
+}
+
+.fieldWrap.required {
+  > label:after {
+    content: " *";
+    color: red;
+  }
+}
+
+h2 {
+  font-size: 24px;
+  color: #474c55;
+  margin: 0px 0px 20px -1px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 10px;
+  margin-top: 5px;
+  display: none;
+}
+
+.successMessage {
+  color: green;
+  font-size: 10px;
+  margin-top: 5px;
+  display: none;
+}
+
+.subheading2 {
+  font-size: 15px;
+  font-family: "Avenir Next regular", Helvetica, Arial, sans-serif;
+  color: #aeaeb7;
+  margin-bottom: 20px;
+}

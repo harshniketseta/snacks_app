@@ -1,0 +1,33 @@
+<h2>Create a new menu</h2>
+
+
+<%= form_for @menu do |f| %>
+  <div class="fieldWrap required">
+    <%= f.label :for_day, "Day" %>
+    <%= f.text_field :for_day, class: "form-control datetimepicker", data:{"format" => "dd DD/MM/YYYY", "min-date" => Date.today.to_s, "days-of-week-disabled" => [0, 6]} %>
+    <% if @already_existing_menu %>
+      <%= link_to "Edit menu for #{unparse_date(@already_existing_menu.for_day)}", edit_menu_path(@already_existing_menu), title: "Edit Menu" %>
+    <% end %>
+  </div>
+
+  <div class="fieldWrap required">
+    <%= f.label :name, "Name" %>
+    <%= f.text_field :name, class: "form-control", maxlength: 20 %>
+  </div>
+
+  <div class="fieldWrap">
+    <%= f.label :description, "Description" %>
+    <%= f.text_area :description, class: "form-control", maxlength: 200 %>
+  </div>
+  <div class="fieldWrap">
+    <%= f.submit :Next, class: "pull-right btn btn-primary" %>
+  </div>
+<% end %>
+
+<% content_for :endjs do %>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      snacks_app.menus(<%= raw({:controller => params[:controller], :action => params[:action]}.to_json) %>);
+    });
+  </script>
+<% end %>

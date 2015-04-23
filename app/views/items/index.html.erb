@@ -1,0 +1,14 @@
+<h2><%= @menu.name %></h2>
+<p class="subheading2"><%= @menu.description %></p>
+
+<a data-append="true" data-render-to=".sortable" data-url="<%= new_menu_item_path(@menu) %>">Add Item</a>
+<ol class="sortable">
+</ol>
+
+<% content_for :endjs do %>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      snacks_app.items(<%= raw({:controller => params[:controller], :action => params[:action]}.to_json) %>);
+    });
+  </script>
+<% end %>

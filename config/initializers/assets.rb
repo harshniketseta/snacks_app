@@ -3,6 +3,11 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-# Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-# Rails.application.config.assets.precompile += %w( search.js )
+Rails.application.config.assets.precompile += %w( home.js )
+Rails.application.config.assets.precompile += %w( home.css )
+
+Rails.application.config.assets.precompile += %w( menus.js )
+Rails.application.config.assets.precompile += %w( menus.css )
+
+Rails.application.config.assets.precompile += %w( items.js )
+Rails.application.config.assets.precompile += %w( items.css )

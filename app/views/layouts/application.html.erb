@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SnacksApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>Snacks App</title>
+
+  <%= stylesheet_link_tag 'application' %>
+  <%= stylesheet_link_tag params[:controller] %>
+
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag params[:controller] %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= render :partial => "layouts/shared/header" %>
+<div id="main_container" style="height: 100%;">
+  <% if notice %>
+    <p class="alert alert-success"><%= raw (notice.is_a?(Array) ? notice.join("</br>") : notice) %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= raw (alert.is_a?(Array) ? alert.join("</br>") : alert) %></p>
+  <% end %>
 
-<%= yield %>
-
+  <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 col-xs-12 marginBottom20" style="padding-bottom: 52px;">
+    <%= yield %>
+  </div>
+</div>
+<%= render :partial => "layouts/shared/footer" %>
 </body>
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    snacks_app = new SnacksApp();
+    snacks_app.init();
+  })
+</script>
+<%= yield(:endjs) %>
