@@ -59,12 +59,17 @@
     }
 
     .itemName {
-      width: 80%;
+      width: calc(100% - 150px);
     }
 
     .itemPrice {
-      width: 20%;
+      width: 150px;
       text-align: right;
+      background-image: url(http://i.imgur.com/Fd7NROx.png);
+      padding-left: 20px; /* Indent the text values inside textbox */
+      background-size: 15px 20px; /* Change symbol size */
+      background-repeat: no-repeat; /* So that rupee image doesn't repeat */
+      background-position-y: 4px;
     }
   }
 

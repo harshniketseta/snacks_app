@@ -12,15 +12,18 @@
       <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-remove"),
                   "#",
                   title: "Remove Item",
-                  class: "pull-right removeItemLink#{item.id.nil? ? " hidden" : ""}"
+                  class: "pull-right removeItemLink#{item.id.nil? ? " hidden" : ""}",
+                  tabIndex: "-1"
       %>
     </div>
   </div>
 
+  <% @item_count += 1 if defined? @item_count %>
+
   <% if (defined? item.sub_items == "method") && item.sub_items.any? %>
     <ol>
-      <% item.sub_items.each_with_index do |sub_item, sub_index| %>
-        <%= render :partial => "item_li", :locals => {item_count: item_count + sub_index + 1,
+      <% item.sub_items.each do |sub_item| %>
+        <%= render :partial => "item_li", :locals => {item_count: @item_count,
                                                       item: sub_item}
         %>
       <% end %>

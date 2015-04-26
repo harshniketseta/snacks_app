@@ -7,15 +7,15 @@
 
 <form id="itemsForm" action="<%= menu_items_path(@menu) %>" method="POST">
   <ol class="sortable">
-    <% @main_items.each_with_index do |main_item, main_index| %>
-      <%= render :partial => "item_li", :locals => {item_count: main_index + 1,
+    <% @main_items.each do |main_item| %>
+      <%= render :partial => "item_li", :locals => {item_count: @item_count,
                                                     item: main_item}
       %>
     <% end %>
   </ol>
 </form>
 
-<input value="Save" class="pull-right btn btn-primary saveItems" />
+<input type="button" value="Save" class="pull-right btn btn-primary saveItems" disabled />
 
 <% content_for :endjs do %>
   <script type="text/javascript">

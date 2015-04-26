@@ -59,8 +59,6 @@ var SnacksApp = (function (SnacksApp) {
 
         }
       });
-
-
     });
 
     $('.sortable').nestedSortable({
@@ -68,8 +66,18 @@ var SnacksApp = (function (SnacksApp) {
       items: 'li',
       toleranceElement: '> div',
       maxLevels: 2,
-      tabSize: 5
+      tabSize: 5,
+      change: function(){$('.sortable').trigger("change");}
     });
+
+    $('.sortable').on("change", self.enableSave);
+    $("form").on("change", self.enableSave);
+  });
+
+  SnacksApp.Items.method("enableSave", function (event) {
+    var self = this;
+
+    $(".saveItems").prop("disabled", false);
   });
 
   return SnacksApp;
