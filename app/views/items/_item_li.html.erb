@@ -1,0 +1,29 @@
+<li id="items[order]_<%= item_count %>" style="display: list-item">
+  <div class='itemWrap' data-item-id="<%= item_count %>">
+    <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+
+    <div class="itemContent">
+      <input type="hidden" name="items[<%= item_count %>][id]" value="<%= item.id %>" class="itemName"/>
+      <input type="text" name="items[<%= item_count %>][name]" value="<%= item.name %>" class="itemName"/>
+      <input type="text" name="items[<%= item_count %>][price]" value="<%= item.price %>" class="itemPrice"/>
+    </div>
+
+    <div class="itemActions">
+      <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-remove"),
+                  "#",
+                  title: "Remove Item",
+                  class: "pull-right removeItemLink#{item.id.nil? ? " hidden" : ""}"
+      %>
+    </div>
+  </div>
+
+  <% if (defined? item.sub_items == "method") && item.sub_items.any? %>
+    <ol>
+      <% item.sub_items.each_with_index do |sub_item, sub_index| %>
+        <%= render :partial => "item_li", :locals => {item_count: item_count + sub_index + 1,
+                                                      item: sub_item}
+        %>
+      <% end %>
+    </ol>
+  <% end %>
+</li>

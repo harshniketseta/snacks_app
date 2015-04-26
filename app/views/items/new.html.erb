@@ -1,1 +1,3 @@
-<li><div><%= @new_item.name %></div></li>
+<%= render :partial => "item_li", :locals => {item_count: "{{item_count}}",
+                                              item: OpenStruct.new(:id => nil, :name => "{{item_name}}", :price => "{{item_price}}")}
+%>

@@ -13,7 +13,8 @@
 
 class Menu < ActiveRecord::Base
   belongs_to :created_by, class_name: "User"
-  has_many :items
+  has_many :main_items, :dependent => :destroy
+  has_many :sub_items
 
   validates :for_day, presence: true, uniqueness: true
   validates :name, presence: true

@@ -305,3 +305,16 @@ h2 {
   color: #aeaeb7;
   margin-bottom: 20px;
 }
+
+.pointer{
+  cursor: pointer;
+}
+
+.actionBar{
+  display: inline-block;
+  margin-bottom: 10px;
+  > a {
+    float: left;
+    margin-right: 5px;
+  }
+}

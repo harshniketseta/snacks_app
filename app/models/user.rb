@@ -58,4 +58,8 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def is_admin?
+    return self.admin
+  end
 end

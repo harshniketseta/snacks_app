@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootstrap
 //= require bootstrap-sprockets
 //= require_self
 //= require snacks_app

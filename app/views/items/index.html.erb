@@ -1,9 +1,21 @@
 <h2><%= @menu.name %></h2>
 <p class="subheading2"><%= @menu.description %></p>
 
-<a data-append="true" data-render-to=".sortable" data-url="<%= new_menu_item_path(@menu) %>">Add Item</a>
-<ol class="sortable">
-</ol>
+<div class="actionBar">
+  <a class="pointer addItem" href="<%= new_menu_item_path %>"><span class="glyphicon glyphicon-plus"></span>Add Item</a>
+</div>
+
+<form id="itemsForm" action="<%= menu_items_path(@menu) %>" method="POST">
+  <ol class="sortable">
+    <% @main_items.each_with_index do |main_item, main_index| %>
+      <%= render :partial => "item_li", :locals => {item_count: main_index + 1,
+                                                    item: main_item}
+      %>
+    <% end %>
+  </ol>
+</form>
+
+<input value="Save" class="pull-right btn btn-primary saveItems" />
 
 <% content_for :endjs do %>
   <script type="text/javascript">

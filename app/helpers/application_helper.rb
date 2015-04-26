@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def authenticate_admin!
-    current_user.admin
+    current_user.is_admin?
   end
 
   def restrict_access_to_devise_controllers

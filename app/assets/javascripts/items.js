@@ -2,6 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 //= require nestedSortable/jquery.mjs.nestedSortable
+//= require mustache
 
 
 var SnacksApp = (function (SnacksApp) {
@@ -23,12 +24,51 @@ var SnacksApp = (function (SnacksApp) {
   SnacksApp.Items.method("initItems", function () {
     var self = this;
 
-    snacks_app.helper().initRenderers();
+    $(".addItem").on("click", function (event) {
+      var jAddItemButton = $(this)
+        , jSortable = $('.sortable')
+        , liCount = jSortable.find("li").length + 1
+        ;
+
+      event.preventDefault();
+
+      $.get(jAddItemButton.attr("href"), function (response) {
+        $('.sortable').append(Mustache.render(response, {item_count: liCount, item_name: "Item " + liCount, item_price: "-"}));
+      });
+    });
+
+    $(".saveItems").on("click", function () {
+      var jSaveItemForm = $(this)
+        , jItemForm = $("#itemsForm")
+        , data = jItemForm.serialize() + "&" + $('ol.sortable').nestedSortable('serialize')
+        , order = $('.sortable').nestedSortable("serialize")
+        , url = jItemForm.attr("action")
+        , method = jItemForm.attr("method")
+        ;
+
+      $.ajax({
+        url: url,
+        method: method,
+        data: data,
+        success: function(response){
+          if(response.success){
+            window.location = response.redirect_to;
+          }
+        },
+        error: function(){
+
+        }
+      });
+
+
+    });
 
     $('.sortable').nestedSortable({
       handle: 'div',
       items: 'li',
-      toleranceElement: '> div'
+      toleranceElement: '> div',
+      maxLevels: 2,
+      tabSize: 5
     });
   });
 
