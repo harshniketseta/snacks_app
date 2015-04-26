@@ -1,8 +1,10 @@
 class MenusController < ApplicationController
 
-  before_action :authenticate_user!
-  before_filter :authenticate_admin!, :only => [:new, :create, :edit, :destroy]
+  include MenusHelper
 
+  before_action :authenticate_user!
+  before_filter :authenticate_admin!, :only => [:new, :create, :edit, :publish, :unpublish, :destroy]
+  before_action :get_menu, :only => [:publish, :unpublish, :destroy]
   def new
     if params[:menu].present?
       @menu = Menu.new(params[:menu].present? ? menu_params : {})
@@ -23,7 +25,7 @@ class MenusController < ApplicationController
   end
 
   def index
-    @menus = Menu.order(:for_day).page(params[:page]).per(30)
+    @menus = Menu.where("status != #{Menu.statuses["deleted"]}").order(:for_day).page(params[:page]).per(30)
   end
 
   def show
@@ -35,7 +37,21 @@ class MenusController < ApplicationController
   end
 
   def destroy
+    if @menu.published?
+      render :json => {:success => false, :error => "Menu is published, please unpublish and then delete."} and return
+    end
+    @menu.deleted!
+    render :json => {:success => true}
+  end
 
+  def publish
+    @menu.published!
+    render :json => {:success => true}
+  end
+
+  def unpublish
+    @menu.unpublished!
+    render :json => {:success => true}
   end
 
   private

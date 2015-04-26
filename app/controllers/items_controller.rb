@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
       item_objects_map[item_id] = item_object
     end
 
-    render :json => {:success => true, :redirect_to => menu_items_path(@menu)}
+    render :json => {:success => true, :redirect_to => menus_path}
   end
 
   def index

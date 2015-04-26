@@ -16,7 +16,9 @@ class Menu < ActiveRecord::Base
   has_many :main_items, :dependent => :destroy
   has_many :sub_items
 
-  validates :for_day, presence: true, uniqueness: true
+  enum status: [ :unpublished, :published, :orders_placed, :orders_completed, :deleted ]
+
+  validate :custom_uniq
   validates :name, presence: true
 
   def self.id_to_date(id)
@@ -25,5 +27,11 @@ class Menu < ActiveRecord::Base
     else
       return id.split("_").join("/")
     end
+  end
+
+  private
+
+  def custom_uniq
+    Menu.where(:for_day => self.for_day).where("status != #{Menu.statuses["deleted"]}").exists?
   end
 end

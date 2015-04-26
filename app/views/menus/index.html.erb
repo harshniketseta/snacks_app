@@ -6,6 +6,10 @@
     <div class="noData subtitle">Please inform the administrator to create a menu</div>
    <% end %>
 <% else %>
+  <h2>Menus</h2>
+  <div class="actionBar">
+    <a class="pointer" href="<%= new_menu_path %>"><span class="glyphicon glyphicon-plus"></span>Add New Menu</a>
+  </div>
   <table class="table table-striped table-hover">
     <thead>
     <tr>
@@ -23,7 +27,30 @@
         <td><%= menu.description %></td>
         <td class="actions">
           <% if current_user.is_admin? %>
-            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-pencil"), edit_menu_path(menu), title: "Edit Menu" %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-pencil"),
+                        edit_menu_path(menu),
+                        title: "Edit Menu"
+            %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-cloud-upload"),
+                        publish_menu_path(menu),
+                        title: "Publish Menu",
+                        class: "publishMenu#{menu.published? ? " hidden" : ""}",
+                        data: {"do-ajax" => true, "event-name" => "success"}
+            %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-cloud-download"),
+                        unpublish_menu_path(menu),
+                        title: "Unpublish Menu",
+                        class: "unpublishMenu#{menu.unpublished? ? " hidden" : ""}",
+                        data: {"do-ajax" => true, "event-name" => "success"}
+            %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-remove"),
+                        menu_path(menu),
+                        title: "Delete Menu",
+                        class: "deleteMenu",
+                        remote: true,
+                        method: :delete,
+                        data: {confirm: 'Are you sure you want to delete menu?'}
+            %>
           <% end %>
         </td>
       </tr>
@@ -31,4 +58,12 @@
     </tbody>
   </table>
   <%= paginate @menus %>
+<% end %>
+
+<% content_for :endjs do %>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      snacks_app.menus(<%= raw({:controller => params[:controller], :action => params[:action]}.to_json) %>);
+    });
+  </script>
 <% end %>

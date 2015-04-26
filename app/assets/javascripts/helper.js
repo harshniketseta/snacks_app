@@ -563,7 +563,7 @@ var _Helper = {
 
     $(".alert.alert-success").remove();
     var noticeHTML = "<p class='alert alert-success'>" + notices.join("</br>") + "</p>";
-    $("#main").prepend(noticeHTML);
+    $("#main_container").prepend(noticeHTML);
   },
   /*
    Shows flash alerts through javascript.
@@ -578,7 +578,7 @@ var _Helper = {
     if (!alerts) return false;
 
     var alertHTML = "<p class='alert alert-danger'>" + alerts.join("</br>") + "</p>";
-    $("#main").prepend(alertHTML);
+    $("#main_container").prepend(alertHTML);
   },
   /*
    Modal show and callbacks helper.
@@ -723,12 +723,14 @@ var _Helper = {
       var jAjaxBtn = $(this)
         , url = jAjaxBtn.attr("href")
         , data = jAjaxBtn.data()
+        , method = data.method
         ;
 
       event.preventDefault();
       $.ajax({
         url: url,
-        method: data.method,
+        dataType: "json",
+        type: method,
         success: function (response) {
           jAjaxBtn.trigger(data.eventName, response);
         },
