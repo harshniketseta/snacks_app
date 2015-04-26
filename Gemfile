@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-# ruby '2.1.3'
+ruby '2.2.0'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -43,7 +43,10 @@ gem 'omniauth'
 gem "omniauth-google-oauth2"
 
 # gem 'sinatra', :require => nil,  git: 'git@github.com:sinatra/sinatra.git'
-
+group :production do
+  gem 'rails_12factor'
+  gem 'puma'
+end
 group :development do
   # Use thin as the app server
   gem 'thin'
