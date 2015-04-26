@@ -1,2 +1,6 @@
-<div class="noData title">No menu for <%= @date %></div>
-<div class="noData subtitle">Please inform the administrator to upload today's menu items</div>
+<div class="noData title">No menu for <%= @date.today? ? "today" : @date.to_s %></div>
+<% if current_user.is_admin? %>
+  <div class="noData"><%= link_to "Add Menu", new_menu_path({:menu => {:for_day => unparse_date(@date)}}), title: "Add Menu" %></div>
+<% else %>
+  <div class="noData subtitle">Please inform the administrator to upload today's menu items</div>
+<% end %>

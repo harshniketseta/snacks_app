@@ -36,12 +36,14 @@ var SnacksApp = (function (SnacksApp) {
       event.preventDefault();
       jPublishButton.addClass("hidden");
       jUnpublishButton.removeClass("hidden");
+      snacks_app.helper().showFlashInfo(["Menu has been published"]);
     });
 
     jUnpublishButton.on("success", function(event){
       event.preventDefault();
       jPublishButton.removeClass("hidden");
       jUnpublishButton.addClass("hidden");
+      snacks_app.helper().showFlashInfo(["Menu has been unpublished"]);
     });
 
     jDeleteButton.on("ajax:success", function(event, response){

@@ -52,6 +52,10 @@
                         data: {confirm: 'Are you sure you want to delete menu?'}
             %>
           <% end %>
+          <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cutlery"),
+                      menu_orders_path(menu),
+                      title: "Order"
+          %>
         </td>
       </tr>
     <% end %>

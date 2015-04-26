@@ -29,7 +29,7 @@ class MenusController < ApplicationController
   end
 
   def show
-    @date = Menu.id_to_date(params[:id])
+    @date = parse_date(Menu.id_to_date(params[:id]))
   end
 
   def edit

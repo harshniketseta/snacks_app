@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :unpublish
     end
     resources :items
+    resources :orders
   end
 
   root 'home#index'

@@ -9,6 +9,7 @@ module ApplicationHelper
   end
 
   def parse_date(date)
+    return Date.today if date == "today"
     date = date.split(" ").last
     Date.strptime(date, "%d/%m/%Y")
   end
