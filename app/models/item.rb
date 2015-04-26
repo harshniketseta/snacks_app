@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  has_many :order_items
 
   def self.segregate_items(ordered_items)
     main_items, sub_items = [[], []]

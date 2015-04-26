@@ -12,7 +12,8 @@ var SnacksApp = (function () {
     var subApps = {
       "helper": "Helper",
       "menus": "Menus",
-      "items": "Items"
+      "items": "Items",
+      "orders": "Orders"
     }
 
     /*

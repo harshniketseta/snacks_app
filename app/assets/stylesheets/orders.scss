@@ -1,3 +1,68 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.sortable {
+  label {
+    margin: 0px;
+  }
+  li {
+    display: list-item;
+    margin-bottom: 5px;
+    > ol {
+      margin-top: 5px;
+    }
+  }
+}
+
+.itemWrap {
+  width: 100%;
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+  padding: 6px;
+  margin: 0;
+  background: #f6f6f6;
+  background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0);
+
+  > * {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  > .itemContent {
+    padding: 2px 0px;
+    width: calc(100% - 20px);
+
+    .itemName {
+      width: calc(100% - 344px);
+    }
+
+    .itemQuantity {
+      text-align: right;
+      width: 50px;
+    }
+
+    .itemQuantityAfter {
+      margin-right: 100px;
+    }
+
+    .itemPrice {
+      width: 150px;
+      text-align: right;
+      background-image: url(http://i.imgur.com/Fd7NROx.png);
+      padding-left: 20px; /* Indent the text values inside textbox */
+      background-size: 15px 20px; /* Change symbol size */
+      background-repeat: no-repeat; /* So that rupee image doesn't repeat */
+      background-position-y: 4px;
+    }
+  }
+}

@@ -22,6 +22,18 @@ var SnacksApp = (function (SnacksApp) {
     if(self.config.action == "index"){
       self.initIndex();
     }
+
+    if(self.config.action == "show"){
+      self.initShow();
+    }
+  });
+
+  SnacksApp.Menus.method("initShow", function () {
+    var self = this;
+
+    $("form").on("change", function(){
+      $(".orderItems").prop("disabled", false);
+    });
   });
 
   SnacksApp.Menus.method("initIndex", function () {

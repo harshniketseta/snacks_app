@@ -1,6 +1,33 @@
-<div class="noData title">No menu for <%= @date.today? ? "today" : @date.to_s %></div>
-<% if current_user.is_admin? %>
-  <div class="noData"><%= link_to "Add Menu", new_menu_path({:menu => {:for_day => unparse_date(@date)}}), title: "Add Menu" %></div>
+<% if @menu.present? %>
+  <h2><%= @menu.name %></h2>
+  <p class="subheading2"><%= @menu.description %></p>
+
+  <form id="itemsForm" action="<%= menu_orders_path(@menu) %>" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+    <ol class="sortable">
+      <% @main_items.each do |main_item| %>
+        <%= render :partial => "item_li", :locals => {item_count: @item_count,
+                                                      item: main_item}
+        %>
+      <% end %>
+    </ol>
+    <input type="submit" value="Place Order" class="pull-right btn btn-primary orderItems" disabled />
+  </form>
+
 <% else %>
-  <div class="noData subtitle">Please inform the administrator to upload today's menu items</div>
+  <div class="noData title">No menu for <%= @date.today? ? "today" : @date.to_s %></div>
+  <% if current_user.is_admin? %>
+    <div class="noData"><%= link_to "Add Menu", new_menu_path({:menu => {:for_day => unparse_date(@date)}}), title: "Add Menu" %></div>
+  <% else %>
+    <div class="noData subtitle">Please inform the administrator to upload today's menu items</div>
+  <% end %>
+<% end %>
+
+<% content_for :endjs do %>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      snacks_app.menus(<%= raw({:controller => params[:controller], :action => params[:action]}.to_json) %>);
+    });
+  </script>
 <% end %>

@@ -1,0 +1,29 @@
+<% @total_price = 0 %>
+<% @total_quantity = 0 %>
+
+<h2>Your Order has been placed.</h2>
+
+<ul class="sortable" style="list-style-type: none;">
+  <% @order.order_items.each do |order_item| %>
+    <% item = order_item.item %>
+
+    <% item_name = item.name %>
+    <% if item.is_a?(SubItem) %>
+      <% item_name = item.main_item.name + " - " + item_name %>
+    <% end %>
+
+    <% if item.is_a?(SubItem) %>
+      <% item_price = item.price == 0 ? item.main_item.price : item.price %>
+    <% else %>
+      <% item_price = item.price %>
+    <% end %>
+
+    <% item_quantity = order_item.quantity %>
+
+    <%= render :partial => "item_li", :locals => {item_name: item_name, total_price: item_price * item_quantity, :item_quantity => item_quantity} %>
+
+    <% @total_price += item_price * item_quantity %>
+    <% @total_quantity += item_quantity %>
+  <% end %>
+  <%= render :partial => "item_li", :locals => {item_name: "Total", total_price: @total_price, :item_quantity => @total_quantity} %>
+</ul>

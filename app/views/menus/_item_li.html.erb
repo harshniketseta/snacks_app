@@ -1,0 +1,26 @@
+<li style="display: list-item">
+  <div class='itemWrap'>
+    <% unless (defined? item.sub_items == "method") && item.sub_items.any? %>
+      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" name="items[]"/>
+    <% else %>
+      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" style="visibility: hidden"/>
+    <% end %>
+
+    <div class="itemContent">
+      <label for="item_<%= item.id %>" class="itemName"><%= item.name %></label>
+      <input type="text" name="item_quantity[<%= item.id %>]" value="1" class="itemQuantity" />
+      <span class="itemQuantityAfter">nos.</span>
+      <label class="itemPrice"><%= item.price == 0 ? "-" : item.price %></label>
+    </div>
+  </div>
+  <% @item_count += 1 if defined? @item_count %>
+
+  <% if (defined? item.sub_items == "method") && item.sub_items.any? %>
+    <ol>
+      <% item.sub_items.each do |sub_item| %>
+        <%= render :partial => "item_li", :locals => {item: sub_item}
+        %>
+      <% end %>
+    </ol>
+  <% end %>
+</li>

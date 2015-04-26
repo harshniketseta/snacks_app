@@ -15,6 +15,7 @@ class Menu < ActiveRecord::Base
   belongs_to :created_by, class_name: "User"
   has_many :main_items, :dependent => :destroy
   has_many :sub_items
+  has_many :orders
 
   enum status: [ :unpublished, :published, :orders_placed, :orders_completed, :deleted ]
 

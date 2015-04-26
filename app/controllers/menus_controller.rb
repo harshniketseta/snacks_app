@@ -30,6 +30,8 @@ class MenusController < ApplicationController
 
   def show
     @date = parse_date(Menu.id_to_date(params[:id]))
+    @menu = Menu.find_by_for_day(@date)
+    @main_items = @menu.main_items
   end
 
   def edit
