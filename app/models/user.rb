@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
                            uid: access_token.uid ,
                            password: Devise.friendly_token[0,20],
                            username: username,
-                           avatar: access_token.info.image
+                           avatar: access_token.info.image,
+                           admin: (User.count == 0)
         )
       end
     end
