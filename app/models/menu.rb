@@ -48,6 +48,14 @@ class Menu < ActiveRecord::Base
     end
   end
 
+  def path
+    if menu.for_day.today?
+      return "/menus/today"
+    else
+      return "/menus/#{menu.for_day.strftime("%d_%m_%Y")}"
+    end
+  end
+
   private
 
   def custom_uniq

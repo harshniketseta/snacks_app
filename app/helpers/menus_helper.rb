@@ -9,10 +9,6 @@ module MenusHelper
   end
 
   def menu_path(menu)
-    if menu.for_day.today?
-      return "/menus/today"
-    else
-      return "/menus/#{menu.for_day.strftime("%d_%m_%Y")}"
-    end
+    menu.path
   end
 end
