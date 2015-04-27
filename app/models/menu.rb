@@ -49,10 +49,10 @@ class Menu < ActiveRecord::Base
   end
 
   def path
-    if menu.for_day.today?
+    if self.for_day.today?
       return "/menus/today"
     else
-      return "/menus/#{menu.for_day.strftime("%d_%m_%Y")}"
+      return "/menus/#{self.for_day.strftime("%d_%m_%Y")}"
     end
   end
 
