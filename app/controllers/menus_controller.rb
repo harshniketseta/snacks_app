@@ -4,7 +4,8 @@ class MenusController < ApplicationController
 
   before_action :authenticate_user!
   before_filter :authenticate_admin!, :only => [:new, :create, :edit, :publish, :unpublish, :destroy]
-  before_action :get_menu, :only => [:publish, :unpublish, :destroy]
+  before_action :get_menu, :only => [:edit, :update, :publish, :unpublish, :destroy]
+
   def new
     if params[:menu].present?
       @menu = Menu.new(params[:menu].present? ? menu_params : {})
@@ -35,6 +36,14 @@ class MenusController < ApplicationController
 
   def edit
 
+  end
+
+  def update
+    if @menu.update(menu_params)
+      redirect_to menu_items_path(@menu)
+    else
+      redirect_to edit_menu_path(@menu), :alert => menu.errors.full_messages
+    end
   end
 
   def destroy
