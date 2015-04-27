@@ -29,4 +29,8 @@ module ApplicationHelper
   def unparse_date(date)
     date.strftime("%a").first(2) + " " + date.strftime("%d/%m/%Y")
   end
+
+  def no_cache
+    expires_in 0
+  end
 end
