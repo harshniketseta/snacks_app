@@ -5,7 +5,13 @@ module ApplicationHelper
   end
 
   def restrict_access_to_devise_controllers
-    redirect_to "/" if devise_controller? && params[:controller] != "omniauth_callbacks"
+    if params[:controller] == "devise/sessions" && params[:action] == "destroy"
+      return
+    end
+    if params[:controller] == "omniauth_callbacks"
+      return
+    end
+    redirect_to "/" if devise_controller?
   end
 
   def parse_date(date)

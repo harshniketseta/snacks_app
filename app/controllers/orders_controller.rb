@@ -6,7 +6,14 @@ class OrdersController < ApplicationController
   before_action :get_order, :only => [:show]
 
   def index
-
+    @all_order_items = []
+    @all_item_orders = {}
+    @menu.orders.includes(:order_items).each{ |order|
+      @all_order_items += order.order_items.to_a
+      order.order_items.each do |order_item|
+        @all_item_orders[order_item.item] = @all_item_orders.fetch(order_item.item, 0) + order_item.quantity.to_i
+      end
+    }
   end
 
   def create

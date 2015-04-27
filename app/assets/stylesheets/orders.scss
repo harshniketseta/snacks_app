@@ -66,3 +66,22 @@
     }
   }
 }
+
+.itemWrap.small {
+
+  > .itemContent {
+
+    > label{
+      padding: 2px 0px;
+      vertical-align: middle;
+    }
+
+    .itemName {
+      width: calc(100% - 294px);
+    }
+
+    .itemQuantityAfter {
+      margin-right: 50px;
+    }
+  }
+}
