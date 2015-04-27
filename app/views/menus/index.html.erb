@@ -28,7 +28,7 @@
         <td class="actions">
           <% if current_user.is_admin? %>
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-pencil"),
-                        edit_menu_path(menu),
+                        menu_items_path(menu),
                         title: "Edit Menu"
             %>
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-cloud-upload"),
