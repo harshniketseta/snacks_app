@@ -12,7 +12,7 @@ module MenusHelper
     if menu.for_day.today?
       return "/menus/today"
     else
-      return "/menus/#{menu.for_day.strftime("%d_%m_%y")}"
+      return "/menus/#{menu.for_day.strftime("%d_%m_%Y")}"
     end
   end
 end

@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauth_providers => [:google_oauth2]
 
   has_many :menus, :foreign_key => :created_by_id
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
 

@@ -17,13 +17,9 @@ var SnacksApp = (function (SnacksApp) {
 
     if (self.config.action === "new") {
       self.initForm();
-    }
-
-    if (self.config.action == "index") {
+    } else if (self.config.action == "index") {
       self.initIndex();
-    }
-
-    if (self.config.action == "show") {
+    } else if (self.config.action == "show") {
       self.initShow();
     }
   });
@@ -60,10 +56,12 @@ var SnacksApp = (function (SnacksApp) {
       var jActions = $(this).closest(".actions");
       event.preventDefault();
 
+      jActions.find(".editMenu").addClass("hidden");
       jActions.find(".publishMenu").addClass("hidden");
       jActions.find(".unpublishMenu").removeClass("hidden");
       jActions.find(".allowOrdering").removeClass("hidden");
       jActions.find(".completeOrder").addClass("hidden");
+      jActions.find(".toOrder").addClass("hidden");
       jActions.find(".deleteMenu").addClass("hidden");
 
       snacks_app.helper().showFlashInfo(["Menu has been published."]);
@@ -74,10 +72,12 @@ var SnacksApp = (function (SnacksApp) {
 
       event.preventDefault();
 
+      jActions.find(".editMenu").removeClass("hidden");
       jActions.find(".publishMenu").removeClass("hidden");
       jActions.find(".unpublishMenu").addClass("hidden");
       jActions.find(".allowOrdering").addClass("hidden");
       jActions.find(".completeOrder").addClass("hidden");
+      jActions.find(".toOrder").addClass("hidden");
       jActions.find(".deleteMenu").removeClass("hidden");
 
       snacks_app.helper().showFlashInfo(["Menu has been unpublished."]);
@@ -88,10 +88,12 @@ var SnacksApp = (function (SnacksApp) {
 
       event.preventDefault();
 
+      jActions.find(".editMenu").addClass("hidden");
       jActions.find(".publishMenu").addClass("hidden");
       jActions.find(".unpublishMenu").removeClass("hidden");
       jActions.find(".allowOrdering").addClass("hidden");
       jActions.find(".completeOrder").removeClass("hidden");
+      jActions.find(".toOrder").removeClass("hidden");
       jActions.find(".deleteMenu").addClass("hidden");
 
       snacks_app.helper().showFlashInfo(["Ordering for the menu has been opened."]);
@@ -106,7 +108,8 @@ var SnacksApp = (function (SnacksApp) {
       jActions.find(".publishMenu").addClass("hidden");
       jActions.find(".unpublishMenu").addClass("hidden");
       jActions.find(".allowOrdering").addClass("hidden");
-      jActions.find(".completeOrder").removeClass("hidden");
+      jActions.find(".completeOrder").addClass("hidden");
+      jActions.find(".toOrder").addClass("hidden");
       jActions.find(".deleteMenu").addClass("hidden");
 
       snacks_app.helper().showFlashInfo(["Orders for the menu has been closed."]);

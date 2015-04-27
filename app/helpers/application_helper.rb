@@ -2,7 +2,11 @@ module ApplicationHelper
 
   def authenticate_admin!
     unless current_user.is_admin?
-      redirect_to :back, alert: "No cookie for you!!"
+      if request.xhr?
+        render :json => {:success => false, :errors => ["You have only wada pav access."]}
+      else
+        redirect_to :back, alert: "No cookie for you!!"
+      end
     end
   end
 

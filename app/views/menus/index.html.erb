@@ -43,7 +43,7 @@
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cloud-download"),
                         unpublish_menu_path(menu),
                         title: "Unpublish Menu",
-                        class: "unpublishMenu#{menu.published? ? "" : " hidden"}",
+                        class: "unpublishMenu#{menu.published? || menu.orders_allowed? ? "" : " hidden"}",
                         data: {"do-ajax" => true, "event-name" => "success"}
             %>
 
@@ -56,7 +56,7 @@
 
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-align-left"),
                         menu_orders_path(menu),
-                        title: "Orders",
+                        title: "View Orders",
                         class: "viewOrders#{menu.orders_allowed? || menu.orders_completed? ? "" : " hidden"}"
             %>
 
@@ -69,7 +69,7 @@
           <% end %>
           <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cutlery"),
                       menu_path(menu),
-                      class: "#{menu.orders_allowed? ? "" : " hidden"}",
+                      class: "toOrder#{menu.orders_allowed? ? "" : " hidden"}",
                       title: "Order"
           %>
           <% if current_user.is_admin? %>

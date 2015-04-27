@@ -35,5 +35,16 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.smtp_settings = {
+      :address   => "smtp.mandrillapp.com",
+      :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
+      :enable_starttls_auto => true, # detects and uses STARTTLS
+      :user_name => "harshniket@idyllic-software.com",
+      :password  => "YK_y1g2VhO9b-SxlITg_nQ", # SMTP password is any valid API key
+      :authentication => 'plain', # Mandrill supports 'plain' or 'login'
+      :domain => 'localhost:5000', # your domain to identify your server when connecting
+  }
+
+  MAILER_HOST = "localhost"
+  config.action_mailer.default_url_options = { host: MAILER_HOST, port: 5000 }
 end

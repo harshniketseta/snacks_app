@@ -20,3 +20,6 @@ Rails.application.config.assets.precompile += %w( items.css )
 
 Rails.application.config.assets.precompile += %w( orders.js )
 Rails.application.config.assets.precompile += %w( orders.css )
+
+Rails.application.config.assets.precompile += %w( users.js )
+Rails.application.config.assets.precompile += %w( users.css )

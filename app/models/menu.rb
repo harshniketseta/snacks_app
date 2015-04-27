@@ -30,6 +30,24 @@ class Menu < ActiveRecord::Base
     end
   end
 
+  def open_orders
+    if self.orders_allowed!
+      User.all.map{ |user| UserMailer.orders_allowed(user, self).deliver }
+      return {:success => true}
+    else
+      return {:success => false, :errors => @menu.errors.full_messages}
+    end
+  end
+
+  def orders_done
+    if self.orders_completed!
+      User.where(:admin => true).map{ |user| UserMailer.place_order(user, self).deliver }
+      return {:success => true}
+    else
+      return {:success => false, :errors => @menu.errors.full_messages}
+    end
+  end
+
   private
 
   def custom_uniq

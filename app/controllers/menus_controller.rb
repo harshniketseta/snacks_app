@@ -73,11 +73,11 @@ class MenusController < ApplicationController
   end
 
   def orders_allowed
-    render :json => {:success => @menu.orders_allowed!}
+    render :json => @menu.open_orders
   end
 
   def orders_completed
-    render :json => {:success => @menu.orders_completed!}
+    render :json => @menu.orders_done
   end
 
   private

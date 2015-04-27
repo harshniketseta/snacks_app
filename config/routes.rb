@@ -13,5 +13,11 @@ Rails.application.routes.draw do
     resources :orders
   end
 
+  resources :users do
+    member do
+      get :make_admin
+    end
+  end
+
   root 'home#index'
 end
