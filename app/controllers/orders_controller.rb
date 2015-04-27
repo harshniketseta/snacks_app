@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
 
   before_action :get_menu
   before_action :get_order, :only => [:show]
+  before_filter :authenticate_admin!, :only => [:index]
 
   def index
     @all_order_items = []
@@ -17,7 +18,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = current_user.orders.create(:menu => @menu)
+    order = current_user.orders.find_or_create_by(:menu => @menu)
+    order.items = []
     Item.find(params[:items]).each do |item|
       order.order_items.create(:item => item, :quantity => params[:item_quantity][item.id.to_s])
     end

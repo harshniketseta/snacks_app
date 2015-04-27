@@ -17,7 +17,7 @@ class Menu < ActiveRecord::Base
   has_many :sub_items
   has_many :orders
 
-  enum status: [ :unpublished, :published, :orders_placed, :orders_completed, :deleted ]
+  enum status: [ :unpublished, :published, :orders_allowed, :orders_completed, :deleted ]
 
   validate :custom_uniq, :on => :create
   validates :name, presence: true
@@ -33,7 +33,7 @@ class Menu < ActiveRecord::Base
   private
 
   def custom_uniq
-    if Menu.where(:for_day => self.for_day).where("status != #{Menu.statuses["deleted"]}").exists?
+    if Menu.where(:for_day => self.for_day).where("status != #{Menu.statuses["deleted"]}").where("status != #{Menu.statuses["orders_completed"]}").exists?
       self.errors.add(:for_day, "specified, a menu is already present")
     end
   end

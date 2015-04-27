@@ -7,6 +7,7 @@
   <ul class="sortable" style="list-style-type: none;">
     <% @all_order_items.each do |order_item| %>
       <% item = order_item.item %>
+      <% next if item.nil? %>
 
       <% item_name = item.name %>
       <% if item.is_a?(SubItem) %>
@@ -38,6 +39,7 @@
 
   <ul class="sortable" style="list-style-type: none;">
     <% @all_item_orders.each do |item, quantity| %>
+      <% next if item.nil? %>
 
       <% item_name = item.name %>
       <% if item.is_a?(SubItem) %>

@@ -27,3 +27,5 @@
   <% end %>
   <%= render :partial => "item_li", :locals => {item_name: "Total", total_price: @total_price, :item_quantity => @total_quantity} %>
 </ul>
+
+Not Happy!! Place order <a href="<%= menu_path(@menu) %>">again</a>

@@ -3,8 +3,8 @@ class MenusController < ApplicationController
   include MenusHelper
 
   before_action :authenticate_user!
-  before_filter :authenticate_admin!, :only => [:new, :create, :edit, :publish, :unpublish, :destroy]
-  before_action :get_menu, :only => [:edit, :update, :publish, :unpublish, :destroy]
+  before_filter :authenticate_admin!, :only => [:new, :create, :edit, :publish, :unpublish, :orders_allowed, :orders_completed, :destroy]
+  before_action :get_menu, :only => [:edit, :update, :publish, :unpublish, :orders_allowed, :orders_completed, :destroy]
 
   def new
     if params[:menu].present?
@@ -26,12 +26,17 @@ class MenusController < ApplicationController
   end
 
   def index
-    @menus = Menu.where("status != #{Menu.statuses["deleted"]}").order(:for_day).page(params[:page]).per(30)
+    @menus = Menu.where("status != #{Menu.statuses["deleted"]}")
+    unless current_user.is_admin?
+      @menus = @menus.where(:status => [Menu.statuses["published"], Menu.statuses["orders_allowed"]])
+    end
+    @menus = @menus.order(:for_day).page(params[:page]).per(30)
   end
 
   def show
     @date = parse_date(Menu.id_to_date(params[:id]))
-    @menu = Menu.find_by_for_day(@date)
+    @menu = Menu.where(:for_day => @date).where(:status => [Menu.statuses["published"], Menu.statuses["orders_allowed"]]).first
+    flash.now.alert = "This menu is not accepting orders at the moment." if @menu.published?
   end
 
   def edit
@@ -50,18 +55,29 @@ class MenusController < ApplicationController
     if @menu.published?
       render :json => {:success => false, :error => "Menu is published, please unpublish and then delete."} and return
     end
-    @menu.deleted!
-    render :json => {:success => true}
+    if @menu.orders_allowed?
+      render :json => {:success => false, :error => "Users are already allowed to order said menu, please unpublish and then delete."} and return
+    end
+    if @menu.orders_completed?
+      render :json => {:success => false, :error => "Users are already allowed to order said menu, please unpublish and then delete."} and return
+    end
+    render :json => {:success => @menu.deleted!}
   end
 
   def publish
-    @menu.published!
-    render :json => {:success => true}
+    render :json => {:success => @menu.published!}
   end
 
   def unpublish
-    @menu.unpublished!
-    render :json => {:success => true}
+    render :json => {:success => @menu.unpublished!}
+  end
+
+  def orders_allowed
+    render :json => {:success => @menu.orders_allowed!}
+  end
+
+  def orders_completed
+    render :json => {:success => @menu.orders_completed!}
   end
 
   private

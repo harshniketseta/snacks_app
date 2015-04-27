@@ -1,7 +1,9 @@
 module ApplicationHelper
 
   def authenticate_admin!
-    current_user.is_admin?
+    unless current_user.is_admin?
+      redirect_to :back, alert: "No cookie for you!!"
+    end
   end
 
   def restrict_access_to_devise_controllers

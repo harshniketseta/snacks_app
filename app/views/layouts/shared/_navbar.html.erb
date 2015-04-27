@@ -13,8 +13,9 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <!--<ul class="nav navbar-nav">-->
-      <!--<li class="active"><a href="#">Dashboard</a></li>-->
+      <ul class="nav navbar-nav">
+      <li <%= params[:controller] == "menus" && params[:action] == "index" ? "class=active" : "" %>><a href="<%= menus_path %>">All Menus</a></li>
+      <li <%= @menu.present? && @menu.for_day.today? ? "class=active" : "" %>><a href="/menus/today">Today's Menu</a></li>
       <!--<li><a href="#">Users</a></li>-->
       <!--<li><a href="#">Tasks</a></li>-->
       <!--<li class="dropdown">-->
@@ -29,7 +30,7 @@
       <!--<li><a href="#">One more separated link</a></li>-->
       <!--</ul>-->
       <!--</li>-->
-      <!--</ul>-->
+      </ul>
       <!--<form class="navbar-form navbar-left" role="search">-->
       <!--<div class="form-group">-->
       <!--<input type="text" class="form-control" placeholder="Search">-->

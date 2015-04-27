@@ -4,12 +4,14 @@
     <div class="noData"><%= link_to "Add Menu", new_menu_path, title: "Add Menu" %></div>
   <% else %>
     <div class="noData subtitle">Please inform the administrator to create a menu</div>
-   <% end %>
+  <% end %>
 <% else %>
-  <h2>Menus</h2>
-  <div class="actionBar">
-    <a class="pointer" href="<%= new_menu_path %>"><span class="glyphicon glyphicon-plus"></span>Add New Menu</a>
-  </div>
+  <h2><span class="glyphicon glyphicon-cutlery"></span> Menus</h2>
+  <% if current_user.is_admin? %>
+    <div class="actionBar">
+      <a class="pointer" href="<%= new_menu_path %>"><span class="glyphicon glyphicon-plus"></span>Add New Menu</a>
+    </div>
+  <% end %>
   <table class="table table-striped table-hover">
     <thead>
     <tr>
@@ -22,40 +24,64 @@
     <tbody>
     <% @menus.each do |menu| %>
       <tr>
-        <td><%= menu.for_day %></td>
+        <td><%= unparse_date(menu.for_day) %></td>
         <td><%= menu.name %></td>
         <td><%= menu.description %></td>
         <td class="actions">
           <% if current_user.is_admin? %>
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-pencil"),
                         edit_menu_path(menu),
-                        title: "Edit Menu"
+                        title: "Edit Menu",
+                        class: "editMenu#{menu.unpublished? ? "" : " hidden"}"
             %>
-            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-cloud-upload"),
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cloud-upload"),
                         publish_menu_path(menu),
                         title: "Publish Menu",
-                        class: "publishMenu#{menu.published? ? " hidden" : ""}",
+                        class: "publishMenu#{menu.unpublished? ? "" : " hidden"}",
                         data: {"do-ajax" => true, "event-name" => "success"}
             %>
-            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-cloud-download"),
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cloud-download"),
                         unpublish_menu_path(menu),
                         title: "Unpublish Menu",
-                        class: "unpublishMenu#{menu.unpublished? ? " hidden" : ""}",
+                        class: "unpublishMenu#{menu.published? ? "" : " hidden"}",
                         data: {"do-ajax" => true, "event-name" => "success"}
             %>
-            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon glyphicon-remove"),
+
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-ice-lolly"),
+                        orders_allowed_menu_path(menu),
+                        title: "Allow Ordering",
+                        class: "allowOrdering#{menu.published? ? "" : " hidden"}",
+                        data: {"do-ajax" => true, "event-name" => "success"}
+            %>
+
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-align-left"),
+                        menu_orders_path(menu),
+                        title: "Orders",
+                        class: "viewOrders#{menu.orders_allowed? || menu.orders_completed? ? "" : " hidden"}"
+            %>
+
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-ice-lolly-tasted"),
+                        orders_completed_menu_path(menu),
+                        title: "Close Orders",
+                        class: "completeOrder#{menu.orders_allowed? ? "" : " hidden"}",
+                        data: {"do-ajax" => true, "event-name" => "success"}
+            %>
+          <% end %>
+          <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cutlery"),
+                      menu_path(menu),
+                      class: "#{menu.orders_allowed? ? "" : " hidden"}",
+                      title: "Order"
+          %>
+          <% if current_user.is_admin? %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-remove"),
                         menu_path(menu),
                         title: "Delete Menu",
-                        class: "deleteMenu",
+                        class: "deleteMenu#{menu.unpublished? ? "" : " hidden"}",
                         remote: true,
                         method: :delete,
                         data: {confirm: 'Are you sure you want to delete menu?'}
             %>
           <% end %>
-          <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-cutlery"),
-                      new_menu_order_path(menu),
-                      title: "Order"
-          %>
         </td>
       </tr>
     <% end %>

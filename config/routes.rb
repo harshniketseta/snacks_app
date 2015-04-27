@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     member do
       get :publish
       get :unpublish
+      get :orders_allowed
+      get :orders_completed
     end
     resources :items
     resources :orders

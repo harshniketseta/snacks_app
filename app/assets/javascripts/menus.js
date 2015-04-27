@@ -19,65 +19,122 @@ var SnacksApp = (function (SnacksApp) {
       self.initForm();
     }
 
-    if(self.config.action == "index"){
+    if (self.config.action == "index") {
       self.initIndex();
     }
 
-    if(self.config.action == "show"){
+    if (self.config.action == "show") {
       self.initShow();
     }
   });
 
   SnacksApp.Menus.method("initShow", function () {
-    var self = this;
+    var self = this
+      , jForm = $("form")
+      ;
 
-    $("form").on("change", function(){
-      $(".orderItems").prop("disabled", false);
+    jForm.on("change", function () {
+      self.enableOrderButton();
     });
+
+    if (jForm.find("input:checked").length > 0) {
+      self.enableOrderButton();
+    }
+  });
+
+  SnacksApp.Menus.method("enableOrderButton", function () {
+    $(".orderItems").prop("disabled", false);
   });
 
   SnacksApp.Menus.method("initIndex", function () {
     var self = this;
 
-    var jPublishButton = $(".publishMenu")
-      , jUnpublishButton = $(".unpublishMenu")
-      , jDeleteButton = $(".deleteMenu")
+    var jAllPublishButtons = $(".publishMenu")
+      , jAllUnpublishButtons = $(".unpublishMenu")
+      , jAllAllowOrderingButtons = $(".allowOrdering")
+      , jAllCompleteOrderingButtons = $(".completeOrder")
+      , jAllDeleteButtons = $(".deleteMenu")
       ;
 
-    jPublishButton.on("success", function(event){
+    jAllPublishButtons.on("success", function (event) {
+      var jActions = $(this).closest(".actions");
       event.preventDefault();
-      jPublishButton.addClass("hidden");
-      jUnpublishButton.removeClass("hidden");
-      snacks_app.helper().showFlashInfo(["Menu has been published"]);
+
+      jActions.find(".publishMenu").addClass("hidden");
+      jActions.find(".unpublishMenu").removeClass("hidden");
+      jActions.find(".allowOrdering").removeClass("hidden");
+      jActions.find(".completeOrder").addClass("hidden");
+      jActions.find(".deleteMenu").addClass("hidden");
+
+      snacks_app.helper().showFlashInfo(["Menu has been published."]);
     });
 
-    jUnpublishButton.on("success", function(event){
+    jAllUnpublishButtons.on("success", function (event) {
+      var jActions = $(this).closest(".actions");
+
       event.preventDefault();
-      jPublishButton.removeClass("hidden");
-      jUnpublishButton.addClass("hidden");
-      snacks_app.helper().showFlashInfo(["Menu has been unpublished"]);
+
+      jActions.find(".publishMenu").removeClass("hidden");
+      jActions.find(".unpublishMenu").addClass("hidden");
+      jActions.find(".allowOrdering").addClass("hidden");
+      jActions.find(".completeOrder").addClass("hidden");
+      jActions.find(".deleteMenu").removeClass("hidden");
+
+      snacks_app.helper().showFlashInfo(["Menu has been unpublished."]);
     });
 
-    jDeleteButton.on("ajax:success", function(event, response){
+    jAllAllowOrderingButtons.on("success", function () {
+      var jActions = $(this).closest(".actions");
+
+      event.preventDefault();
+
+      jActions.find(".publishMenu").addClass("hidden");
+      jActions.find(".unpublishMenu").removeClass("hidden");
+      jActions.find(".allowOrdering").addClass("hidden");
+      jActions.find(".completeOrder").removeClass("hidden");
+      jActions.find(".deleteMenu").addClass("hidden");
+
+      snacks_app.helper().showFlashInfo(["Ordering for the menu has been opened."]);
+    });
+
+    jAllCompleteOrderingButtons.on("success", function () {
+      var jActions = $(this).closest(".actions");
+
+      event.preventDefault();
+
+      jActions.find(".editMenu").addClass("hidden");
+      jActions.find(".publishMenu").addClass("hidden");
+      jActions.find(".unpublishMenu").addClass("hidden");
+      jActions.find(".allowOrdering").addClass("hidden");
+      jActions.find(".completeOrder").removeClass("hidden");
+      jActions.find(".deleteMenu").addClass("hidden");
+
+      snacks_app.helper().showFlashInfo(["Orders for the menu has been closed."]);
+    });
+
+    jAllDeleteButtons.on("ajax:success", function (event, response) {
       event.preventDefault();
       var jTr = $(this).closest("tr")
         , jTable = jTr.closest("table")
         ;
 
-      if(response.error){
+      if (response.error) {
         snacks_app.helper().showFlashAlert([response.error]);
         return;
       }
 
-      if(jTable.find("tr").length == 2){
+      if (jTable.find("tr").length == 2) {
         window.location.reload();
       } else {
         jTr.fadeOut().remove();
       }
     });
 
-    snacks_app.helper().initAjaxButtons(jPublishButton);
-    snacks_app.helper().initAjaxButtons(jUnpublishButton);
+    snacks_app.helper().initAjaxButtons(jAllPublishButtons);
+    snacks_app.helper().initAjaxButtons(jAllUnpublishButtons);
+    snacks_app.helper().initAjaxButtons(jAllAllowOrderingButtons);
+    snacks_app.helper().initAjaxButtons(jAllCompleteOrderingButtons);
+    snacks_app.helper().initAjaxButtons(jAllDeleteButtons);
   });
 
   SnacksApp.Menus.method("initForm", function () {

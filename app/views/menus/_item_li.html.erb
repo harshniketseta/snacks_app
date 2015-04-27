@@ -1,9 +1,9 @@
 <li style="display: list-item">
   <div class='itemWrap'>
     <% unless (defined? item.sub_items == "method") && item.sub_items.any? %>
-      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" name="items[]"/>
+      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" name="items[]" <%= @menu.published? ? "disabled" : "" %> />
     <% else %>
-      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" style="visibility: hidden"/>
+      <input id="item_<%= item.id %>" type="checkbox" value="<%= item.id %>" style="visibility: hidden" <%= @menu.published? ? "disabled" : "" %> />
     <% end %>
 
     <div class="itemContent">
