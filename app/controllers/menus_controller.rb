@@ -36,7 +36,7 @@ class MenusController < ApplicationController
   def show
     @date = parse_date(Menu.id_to_date(params[:id]))
     @menu = Menu.where(:for_day => @date).where(:status => [Menu.statuses["published"], Menu.statuses["orders_allowed"]]).first
-    flash.now.alert = "This menu is not accepting orders at the moment." if @menu.published?
+    flash.now.alert = "This menu is not accepting orders at the moment." if @menu.present? && @menu.published?
   end
 
   def edit
