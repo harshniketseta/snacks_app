@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426171838) do
+ActiveRecord::Schema.define(version: 20150428092629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,13 +27,13 @@ ActiveRecord::Schema.define(version: 20150426171838) do
   end
 
   create_table "menus", force: :cascade do |t|
-    t.date     "for_day",                              null: false
-    t.string   "name",          limit: 20,             null: false
+    t.date     "for_day",                               null: false
+    t.string   "name",          limit: 100,             null: false
     t.string   "description"
     t.integer  "created_by_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "status",                   default: 0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "status",                    default: 0
   end
 
   create_table "order_items", force: :cascade do |t|
