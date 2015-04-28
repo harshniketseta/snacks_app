@@ -3,7 +3,7 @@
     <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
 
     <div class="itemContent">
-      <input type="hidden" name="items[<%= item_count %>][id]" value="<%= item.id %>" class="itemName"/>
+      <input type="hidden" name="items[<%= item_count %>][id]" value="<%= item.id %>" class="itemName" maxlength="100"/>
       <input type="text" name="items[<%= item_count %>][name]" value="<%= item.name %>" class="itemName"/>
       <input type="text" name="items[<%= item_count %>][price]" value="<%= item.price %>" class="itemPrice"/>
     </div>
