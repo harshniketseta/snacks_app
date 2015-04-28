@@ -6,6 +6,7 @@ class MenusController < ApplicationController
   before_filter :authenticate_admin!, :only => [:new, :create, :edit, :publish, :unpublish, :orders_allowed, :orders_completed, :destroy]
   before_action :get_menu, :only => [:edit, :update, :publish, :unpublish, :orders_allowed, :orders_completed, :destroy]
   before_action :no_cache, :only => [:publish, :unpublish, :orders_allowed, :orders_completed, :destroy]
+
   def new
     if params[:menu].present?
       @menu = Menu.new(params[:menu].present? ? menu_params : {})
