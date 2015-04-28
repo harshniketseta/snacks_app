@@ -1,64 +1,99 @@
 <% @total_price = 0 %>
 <% @total_quantity = 0 %>
 
-<div class="col-lg-6">
-  <h2>Full Order</h2>
+<div class="col-lg-12">
+  <div class="col-lg-6">
+    <h2>Full Order</h2>
 
-  <ul class="sortable" style="list-style-type: none;">
-    <% @all_order_items.each do |order_item| %>
-      <% item = order_item.item %>
-      <% next if item.nil? %>
+    <ul class="sortable" style="list-style-type: none;">
+      <% @menu.orders.each do |order| %>
+        <div class="itemGroup"><%= order.user.name %></div>
+        <% order.order_items.each do |order_item| %>
+          <% item = order_item.item %>
+          <% next if item.nil? %>
 
-      <% item_name = item.name %>
-      <% if item.is_a?(SubItem) %>
-        <% item_name = item.main_item.name + " - " + item_name %>
+          <% item_name = item.name %>
+          <% if item.is_a?(SubItem) %>
+            <% item_name = item.main_item.name + " - " + item_name %>
+          <% end %>
+
+          <% if item.is_a?(SubItem) %>
+            <% item_price = item.price == 0 ? item.main_item.price : item.price %>
+          <% else %>
+            <% item_price = item.price %>
+          <% end %>
+
+          <% item_quantity = order_item.quantity.to_i %>
+
+          <%= render :partial => "item_li", :locals => {item_name: item_name, total_price: item_price * item_quantity, :item_quantity => item_quantity} %>
+
+          <% @total_price += item_price * item_quantity %>
+          <% @total_quantity += item_quantity %>
+        <% end %>
       <% end %>
+      <div class="itemGroup">Total</div>
+      <%= render :partial => "item_li", :locals => {item_name: "", total_price: @total_price, :item_quantity => @total_quantity} %>
+    </ul>
+  </div>
 
-      <% if item.is_a?(SubItem) %>
-        <% item_price = item.price == 0 ? item.main_item.price : item.price %>
-      <% else %>
-        <% item_price = item.price %>
+  <% @total_price = 0 %>
+  <% @total_quantity = 0 %>
+
+  <div class="col-lg-6">
+    <h2>Order by Item</h2>
+
+    <ul class="sortable" style="list-style-type: none;">
+      <% @all_item_orders.each do |item, quantity| %>
+        <% next if item.nil? %>
+
+        <% item_name = item.name %>
+        <% if item.is_a?(SubItem) %>
+          <% item_name = item.main_item.name + " - " + item_name %>
+        <% end %>
+
+        <% if item.is_a?(SubItem) %>
+          <% item_price = item.price == 0 ? item.main_item.price : item.price %>
+        <% else %>
+          <% item_price = item.price %>
+        <% end %>
+
+        <% item_quantity = quantity %>
+
+        <%= render :partial => "item_li", :locals => {item_name: item_name, total_price: item_price * item_quantity, :item_quantity => item_quantity} %>
+
+        <% @total_price += item_price * item_quantity %>
+        <% @total_quantity += item_quantity %>
       <% end %>
-
-      <% item_quantity = order_item.quantity.to_i %>
-
-      <%= render :partial => "item_li", :locals => {item_name: item_name, total_price: item_price * item_quantity, :item_quantity => item_quantity} %>
-
-      <% @total_price += item_price * item_quantity %>
-      <% @total_quantity += item_quantity %>
-    <% end %>
-    <%= render :partial => "item_li", :locals => {item_name: "Total", total_price: @total_price, :item_quantity => @total_quantity} %>
-  </ul>
+      <%= render :partial => "item_li", :locals => {item_name: "Total", total_price: @total_price, :item_quantity => @total_quantity} %>
+    </ul>
+  </div>
 </div>
 
-<% @total_price = 0 %>
-<% @total_quantity = 0 %>
+<div class="col-lg-12">
+  <div class="col-lg-6">
+    <h2>Persons</h2>
 
-<div class="col-lg-6">
-  <h2>Order by Item</h2>
-
-  <ul class="sortable" style="list-style-type: none;">
-    <% @all_item_orders.each do |item, quantity| %>
-      <% next if item.nil? %>
-
-      <% item_name = item.name %>
-      <% if item.is_a?(SubItem) %>
-        <% item_name = item.main_item.name + " - " + item_name %>
+    <ul class="sortable" style="list-style-type: none;">
+      <div class="itemGroup">Ordered</div>
+      <% @menu.orders.each do |order| %>
+        <li style="display: list-item">
+          <div class='itemWrap small'>
+            <div class="itemContent">
+              <label><%= order.user.name %></label>
+            </div>
+          </div>
+        </li>
       <% end %>
-
-      <% if item.is_a?(SubItem) %>
-        <% item_price = item.price == 0 ? item.main_item.price : item.price %>
-      <% else %>
-        <% item_price = item.price %>
+      <div class="itemGroup">Not Yet Ordered</div>
+      <% User.where("id NOT IN (?)", @menu.orders.collect(&:user_id).join(",")).each do |user| %>
+        <li style="display: list-item">
+          <div class='itemWrap small'>
+            <div class="itemContent">
+              <label class="itemName"><%= user.name %></label>
+            </div>
+          </div>
+        </li>
       <% end %>
-
-      <% item_quantity = quantity %>
-
-      <%= render :partial => "item_li", :locals => {item_name: item_name, total_price: item_price * item_quantity, :item_quantity => item_quantity} %>
-
-      <% @total_price += item_price * item_quantity %>
-      <% @total_quantity += item_quantity %>
-    <% end %>
-    <%= render :partial => "item_li", :locals => {item_name: "Total", total_price: @total_price, :item_quantity => @total_quantity} %>
-  </ul>
+    </ul>
+  </div>
 </div>

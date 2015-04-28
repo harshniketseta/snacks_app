@@ -15,6 +15,14 @@
   }
 }
 
+.itemGroup {
+  background-color: aliceblue;
+  border: 1px salmon solid;
+  margin-bottom: 5px;
+  padding: 5px;
+  margin-left: -20px;
+}
+
 .itemWrap {
   width: 100%;
   border: 1px solid #d4d4d4;
@@ -71,7 +79,7 @@
 
   > .itemContent {
 
-    > label{
+    > label {
       padding: 2px 0px;
       vertical-align: middle;
     }
