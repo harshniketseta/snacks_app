@@ -7,8 +7,4 @@ module MenusHelper
       redirect_to new_menu_path and return
     end
   end
-
-  def menu_path(menu)
-    return menu.path
-  end
 end
