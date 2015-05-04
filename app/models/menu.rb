@@ -22,6 +22,21 @@ class Menu < ActiveRecord::Base
   validate :custom_uniq, :on => :create
   validates :name, presence: true
 
+  def copy_items_from(other_menu)
+    return false if other_menu.nil?
+
+    other_menu.main_items.each do |main_item|
+      new_main_item = main_item.clone
+      self.main_items << new_main_item
+      main_item.sub_items.each do |sub_item|
+        new_sub_item = sub_item.clone
+        new_main_item.sub_items << new_sub_item
+      end
+    end
+
+    return true
+  end
+
   def self.id_to_date(id)
     if id.downcase == "today"
       return "today"

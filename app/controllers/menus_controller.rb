@@ -20,9 +20,12 @@ class MenusController < ApplicationController
     menu = Menu.create(menu_params)
     menu.created_by = current_user
     if menu.save
+      menu.copy_items_from(Menu.find_by(id: params[:copy_menu_id])) if params[:copy_menu_id].present?
       redirect_to menu_items_path(menu)
     else
-      redirect_to "#{new_menu_path}?#{{menu: menu_params}.to_query}", :alert => menu.errors.full_messages
+      query_params = {menu: menu_params}.to_hash
+      query_params.merge!({copy_menu_id: params[:copy_menu_id]})
+      redirect_to "#{new_menu_path}?#{query_params.to_query}", :alert => menu.errors.full_messages
     end
   end
 

@@ -73,6 +73,11 @@
                       title: "Order"
           %>
           <% if current_user.is_admin? %>
+            <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-copy"),
+                        new_menu_path(copy_menu_id: menu.id),
+                        title: "Copy Menu",
+                        class: "copyMenu"
+            %>
             <%= link_to content_tag(:span, "", class: "glyphicon glyphicon-remove"),
                         menu_path(menu),
                         title: "Delete Menu",

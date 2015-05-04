@@ -6,7 +6,9 @@
       <%= link_to "Edit menu for #{unparse_date(@already_existing_menu.for_day)}", edit_menu_path(@already_existing_menu), title: "Edit Menu" %>
     <% end %>
   </div>
-
+  <% if params[:copy_menu_id] %>
+    <%= f.text_field :copy_menu_id, type: "hidden", name: "copy_menu_id", value: params[:copy_menu_id]%>
+  <% end %>
   <div class="fieldWrap required">
     <%= f.label :name, "Name" %>
     <%= f.text_field :name, class: "form-control", maxlength: 20 %>
