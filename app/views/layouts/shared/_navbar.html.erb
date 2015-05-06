@@ -13,17 +13,19 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li <%= params[:controller] == "menus" && params[:action] == "index" ? "class=active" : "" %>>
-          <a href="<%= menus_path %>">All Menus</a>
-        </li>
-        <li <%= @menu.present? && @menu.persisted? && @menu.for_day.today? ? "class=active" : "" %>>
-          <a href="/menus/today">Today's Menu</a>
-        </li>
-        <li>
-          <a href="<%= users_path %>">Users</a>
-        </li>
-      </ul>
+      <% if user_signed_in? %>
+        <ul class="nav navbar-nav">
+          <li <%= params[:controller] == "menus" && params[:action] == "index" ? "class=active" : "" %>>
+            <a href="<%= menus_path %>">All Menus</a>
+          </li>
+          <li <%= @menu.present? && @menu.persisted? && @menu.for_day.today? ? "class=active" : "" %>>
+            <a href="/menus/today">Today's Menu</a>
+          </li>
+          <li>
+            <a href="<%= users_path %>">Users</a>
+          </li>
+        </ul>
+      <% end %>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li>
